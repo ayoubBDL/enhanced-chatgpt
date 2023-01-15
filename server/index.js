@@ -18,7 +18,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
-const port = 3080
+const port = process.env || 5000
 
 app.use
 app.post('/', async (req,res)=>{
