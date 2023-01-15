@@ -26,7 +26,7 @@ function App() {
 
     const messages = chatLogNew.map((message)=>message.message).join("\n")
 
-    const response = await fetch("http://localhost:3080/", {
+    const response = await fetch("https://chatgpt-apiv0-1.onrender.com/", {
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -46,7 +46,7 @@ function App() {
   }
 
   const getEngines = async ()=>{
-    const response = await fetch("http://localhost:3080/models")
+    const response = await fetch("https://chatgpt-apiv0-1.onrender.com/models")
     const data = await response.json()
     setModels(data.models)
   }
