@@ -1,12 +1,11 @@
 import React from 'react'
-import {useState} from 'react';
 
 const ChatMessage = ({message}) => {
   return (
-    <div className={`chat-message ${message.user == "gpt" && "chatgpt"} `}>
+    <div className={`chat-message ${message.user === "gpt" && "chatgpt"} `}>
         <div className="chat-message-center">
-            <div className={`avatar ${message.user == "gpt" && "chatgpt"}`}>
-                {message.user == "gpt" && <svg
+            <div className={`avatar ${message.user === "gpt" && "chatgpt"}`}>
+                {message.user === "gpt" && <svg
                 width={35}
                 height={35}
                 viewBox="0 0 41 41"

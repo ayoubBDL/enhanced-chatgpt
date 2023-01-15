@@ -26,7 +26,7 @@ function App() {
 
     const messages = chatLogNew.map((message)=>message.message).join("\n")
 
-    const response = await fetch("https://chatgpt-apiv0-1.onrender.com/", {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}`, {
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -46,10 +46,13 @@ function App() {
   }
 
   const getEngines = async ()=>{
-    const response = await fetch("https://chatgpt-apiv0-1.onrender.com/models")
+    const response = await fetch(`${process.env.REACT_APP_API_URL}models`)
     const data = await response.json()
     setModels(data.models)
   }
+
+  console.log(process.env)
+  console.log(process.env.REACT_APP_API_URL)
   return (
     <div className="App">
       <aside className= "sidemenu">
