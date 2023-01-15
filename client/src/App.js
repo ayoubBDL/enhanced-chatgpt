@@ -8,7 +8,7 @@ import ChatMessage from './Component/ChatMessage';
 function App() {
 
   useEffect(() => {
-    // getEngines()
+    getEngines()
   
   }, [])
   
