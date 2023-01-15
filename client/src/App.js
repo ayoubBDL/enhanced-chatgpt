@@ -46,7 +46,12 @@ function App() {
   }
 
   const getEngines = async ()=>{
-    const response = await fetch(`${process.env.REACT_APP_API_URL}models`)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}models`, {
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json"
+      },
+    })
     const data = await response.json()
     setModels(data.models)
   }
