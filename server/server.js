@@ -18,7 +18,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
-const port = process.env || 5000
+const port = process.env.PORT || 5000
 
 app.use
 app.post('/', async (req,res)=>{
@@ -42,5 +42,5 @@ app.get('/models', async (req,res)=>{
 })
 
 app.listen(port, ()=>{
-    console.log('App listening to '+port)
+    console.log('App listening to '+ port)
 })
