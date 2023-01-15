@@ -8,7 +8,7 @@ import ChatMessage from './Component/ChatMessage';
 function App() {
 
   useEffect(() => {
-    getEngines()
+    // getEngines()
   
   }, [])
   
@@ -57,7 +57,10 @@ function App() {
           <span>+</span>
           New Chat
         </div>
-        <div className='models'>
+        <div className="side-menu-text">
+          Choose a model
+        </div>
+        <div className='models side-menu-button'>
           <select onChange={(e)=>{
             setCurrentModel(e.target.value)
           }}>

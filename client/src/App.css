@@ -46,6 +46,13 @@
   left:0; right: 0;
 }
 
+
+.side-menu-text{
+  padding: 12px;
+  margin: 4px;
+  text-align: left;
+}
+
 .chat-input-textarea{
   background-color: #40414f;
   width: 90%;
