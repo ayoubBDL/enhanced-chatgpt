@@ -21,6 +21,20 @@ app.use(cors())
 const port = process.env.PORT || 5000
 
 app.use
+
+app.get('/', async (req,res)=>{
+    try {
+        
+        res.status(200).json({
+            Hello: "Ayoub"
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({error})
+    }
+})
+
+
 app.post('/', async (req,res)=>{
     const {message, currentModel} = req.body
     try {
