@@ -61,6 +61,7 @@ app.get('/models', async (req,res)=>{
         res.status(200).json({
             models: response.data.data
         })
+        console.log(process.env.OPENAI_API_KEY, " KEEEEEEY")
     } catch (error) {
         console.error(error)
         res.status(500).send({error})
