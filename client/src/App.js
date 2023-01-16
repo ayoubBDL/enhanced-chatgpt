@@ -56,8 +56,6 @@ function App() {
     setModels(data.models)
   }
 
-  console.log(process.env)
-  console.log(process.env.REACT_APP_API_URL)
   return (
     <div className="App">
       <aside className= "sidemenu">
