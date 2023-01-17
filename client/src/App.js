@@ -19,8 +19,7 @@ function App() {
   
     const handleApi = () => {
       //call the api
-      const url = 'http://localhost:5000/imagetest'
-  
+      const url = `${process.env.REACT_APP_API_URL}imagetest`
       const formData = new FormData()
       formData.append('image', image)
       axios.post(url, formData).then(result => {
