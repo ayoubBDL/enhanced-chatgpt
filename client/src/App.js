@@ -106,27 +106,27 @@ function App() {
           <UploadImage image={image} handleApi={handleApi} handleChange={handleChange} />
         </aside>
         <section className="chatbox">
-        <div className="chat-log">
-          {chatLog.map((message, index)=>(
-            <ChatMessage key={index} message={message} />
-          ))}
-          {images && images.map((image, index)=>(
-            <img key={index} src={`${image.url}`} width={400} height={400} />
-          ))}
+          <div className="chat-log">
+            {chatLog.map((message, index)=>(
+              <ChatMessage key={index} message={message} />
+            ))}
+            {images && images.map((image, index)=>(
+              <img key={index} src={`${image.url}`} width={400} height={400} />
+            ))}
 
-          
-        </div>
-        <div className="chat-input-holder">
-          <form onSubmit={handleSubmit}>
-            <input 
-              className="chat-input-textarea"
-              rows="1"
-              value={input}
-              onChange={(e)=> setInput(e.target.value)}
-              />
-          </form>
-        </div>
-      </section>
+            
+          </div>
+          <div className="chat-input-holder">
+            <form onSubmit={handleSubmit}>
+              <input 
+                className="chat-input-textarea"
+                rows="1"
+                value={input}
+                onChange={(e)=> setInput(e.target.value)}
+                />
+            </form>
+          </div>
+        </section>
 
 
     </div>
