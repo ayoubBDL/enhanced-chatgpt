@@ -58,15 +58,16 @@
 
 
 
-.models select{
+select{
   appearance: none;
   width: 100%;
   height: 100%;
   padding: 12px;
-  border: none;
+  border: solid white 1px;
   background-color: #202123;
   text-align: left;
   color: white;
+  margin-bottom: 20px;
 }
 
 .option{

@@ -1,35 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
 
-const UploadImage = ()=> {
-  const [image, setImage] = useState('')
-
-  const handleChange = (e) => {
-    console.log(e.target.files)
-    setImage(e.target.files[0])
-  }
-
-  const handleApi = () => {
-    //call the api
-    const url = 'http://localhost:5000/imagetest'
-
-    const formData = new FormData()
-    formData.append('image', image)
-    axios.post(url, formData).then(result => {
-      console.log(result)
-    })
-      .catch(error => {
-        alert('service error')
-        console.log(error)
-      })
-  }
+const UploadImage = ({image, handleApi, handleChange})=> {
+  
 
   return (
     <div>
-      IMAGE UPLOAD <br />
-      <img src={image ? URL.createObjectURL(image) : null} width={150} height={150} />
-      <input type="file" onChange={handleChange} /> <br />
-      <button onClick={handleApi} >SUBMIT</button>
+      <div>
+            <span >IMAGE UPLOAD</span>
+                <input style={{marginTop:24}} type="file" onChange={handleChange} /> <br />
+                <button style={{marginBottom:24}} onClick={handleApi} >SUBMIT</button>
+            </div>
+                <img src={image ? URL.createObjectURL(image) : null} width={150} height={150} />
     </div>
   );
 }
