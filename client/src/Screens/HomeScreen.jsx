@@ -9,6 +9,8 @@ function HomeScreen() {
 
 
   return (
+    <div className='all'>
+    <h2>Welcome to CharKhiPT</h2>
     <div className="container">
         <Link className='card' to={'/chatstandard'}>
             <h3>Chat with Our AI for anything you like</h3> 
@@ -38,6 +40,7 @@ function HomeScreen() {
           
 
 
+    </div>
     </div>
   );
 }

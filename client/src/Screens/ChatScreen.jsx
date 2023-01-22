@@ -2,6 +2,7 @@ import '../normal.css';
 import '../App.css';
 import {useState} from 'react';
 import ChatMessage from '../Component/ChatMessage';
+import LoadingSpinner from '../Component/LoadSpinner';
 
 
 
@@ -9,10 +10,12 @@ import ChatMessage from '../Component/ChatMessage';
 function ChatScreen() {
 
   const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
   const [chatLog, setChatLog] = useState([])
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
+    setLoading(true)
     let chatLogNew = [...chatLog, {user:"me", message:`${input}`}]
     
     setInput("")
@@ -30,6 +33,7 @@ function ChatScreen() {
       })
     });
     const data = await response.json()
+    setLoading(false)
     setChatLog([...chatLogNew, {user:"gpt", message:`${data.message}`}])
         
   }
@@ -55,7 +59,12 @@ function ChatScreen() {
             {chatLog.map((message, index)=>(
               <ChatMessage key={index} message={message} />
             ))}
-            
+            {loading ? 
+              <div className="chat-message-center">
+                <LoadingSpinner />
+              </div>
+              : null
+            } 
 
             
           </div>

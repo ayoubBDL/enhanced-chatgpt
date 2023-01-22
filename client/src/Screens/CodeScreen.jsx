@@ -1,9 +1,8 @@
 import '../normal.css';
 import '../App.css';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import ChatMessage from '../Component/ChatMessage';
-import UploadImage from '../Component/UploadImage';
-import axios from 'axios'
+import LoadingSpinner from '../Component/LoadSpinner';
 
 
 
@@ -11,13 +10,14 @@ function CodeScreen() {
 
  
   
-  const [currentModel, setCurrentModel] = useState("text-davinci-003")
   const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
   const [chatLog, setChatLog] = useState([])
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
     let chatLogNew = [...chatLog, {user:"me", message:`${input}`}]
+    setLoading(true)
     
     setInput("")
     setChatLog(chatLogNew)
@@ -34,6 +34,8 @@ function CodeScreen() {
       })
     });
     const data = await response.json()
+    setLoading(false)
+
     setChatLog([...chatLogNew, {user:"gpt", message:`${data.message}`}])
         
   }
@@ -57,7 +59,12 @@ function CodeScreen() {
             {chatLog.map((message, index)=>(
               <ChatMessage key={index} message={message} />
             ))}
-            
+            {loading ? 
+              <div className="chat-message-center">
+                <LoadingSpinner />
+              </div>
+              : null
+            }            
           </div>
           <div className="chat-input-holder">
             <form onSubmit={handleSubmit}>

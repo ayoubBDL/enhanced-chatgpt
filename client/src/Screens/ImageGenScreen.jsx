@@ -3,6 +3,7 @@ import '../App.css';
 import {useState, useEffect} from 'react';
 import ChatMessageImage from '../Component/ChatMessageImage';
 import ChatMessage from '../Component/ChatMessage';
+import LoadingSpinner from '../Component/LoadSpinner';
 
 
 const numbers = [1,2,3,4]
@@ -10,12 +11,14 @@ const numbers = [1,2,3,4]
 function ImageGenScreen() {
 
   
+  const [loading, setLoading] = useState(false)
   const [input, setInput] = useState('')
   const [chatLog, setChatLog] = useState([])
   const [numberImages, setNumberImages] = useState(1)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
+    setLoading(true)
 
     let chatLogNew = [...chatLog, {user:"me", message:`${input}`}]
     setChatLog(chatLogNew)
@@ -32,6 +35,7 @@ function ImageGenScreen() {
     });
     setInput("")
     const data = await response.json()
+    setLoading(false)
     setChatLog([...chatLogNew, {user:"gpt", message:`${JSON.stringify(data.message)}`}])
 
   }
@@ -71,6 +75,13 @@ function ImageGenScreen() {
                 {chatLog.map((element, index)=>(
                     <ChatMessageImage key={index} element={element}  />
                 ))}
+
+                {loading ? 
+                  <div className="chat-message-center">
+                    <LoadingSpinner />
+                  </div>
+                  : null
+                }
             </div>
             
             

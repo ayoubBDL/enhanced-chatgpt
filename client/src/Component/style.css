@@ -3,9 +3,6 @@
     margin-bottom: 12px;
 }
 
-img{
-    z-index: 2;
-}
 
 img:hover{
     transform: scale(3);

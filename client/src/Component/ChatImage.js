@@ -2,6 +2,7 @@ import React from 'react'
 import "./style.css"
 import RobotIcon from '../Icons/RobotIcon'
 import HumanIcon from '../Icons/HumanIcon'
+import LoadSpinner from '../Component/LoadSpinner';
 
 const ChatImage = ({element, image}) => {
   return (

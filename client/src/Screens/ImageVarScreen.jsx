@@ -1,9 +1,10 @@
 import '../normal.css';
 import '../App.css';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios from 'axios'
 import ChatImage from '../Component/ChatImage';
-import LoadSpinner from '../Component/LoadSpinner';
+import LoadingSpinner from '../Component/LoadSpinner';
+
 
 
 const numbers = [1,2,3,4]
@@ -49,7 +50,6 @@ function ImageVarScreen() {
       setImages(result.data.images)
       setChatLog([...chatLog, {user:"gpt", images:`${JSON.stringify(result.data.images)}`}])
       setLoading(false)
-      console.log(JSON.stringify(result.data.images))
     })
       .catch(error => {
         alert('service error')
@@ -88,12 +88,14 @@ function ImageVarScreen() {
           <div className="chat-log">
             <div className='.chat-message-center'>
 
-                {chatLog.map((element, index)=>{
-                  if(element.user === 'gpt'){
-                    return loading ? <LoadSpinner />:<ChatImage key={index} element={element} image={image} /> 
-                  }
-                  return <ChatImage key={index} element={element} image={image} /> 
-                })}
+                {chatLog.map((element, index)=>(
+                    <ChatImage key={index} element={element} image={image} loading={loading} />
+                ))}
+                {loading ? 
+                <div className="chat-message-center">
+                  <LoadingSpinner />
+                </div>
+                : null}
             </div>
             
             
