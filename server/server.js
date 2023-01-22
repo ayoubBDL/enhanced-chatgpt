@@ -49,7 +49,7 @@ app.get('/', async (req,res)=>{
 })
 
 
-app.post('/', async (req,res)=>{
+app.post('/advencedchat', async (req,res)=>{
     const {message, currentModel} = req.body
     try {
         const response = await openai.createCompletion({
@@ -69,44 +69,64 @@ app.post('/', async (req,res)=>{
     }
 })
 
-app.get('/image', async (req,res)=>{
-    const {message, currentModel} = req.body
+app.post('/chat', async (req,res)=>{
+    const {message} = req.body
     try {
-        const reader = fs.createReadStream("cc.png")
-        const response = await openai.createImageVariation(
-            reader,
-            2,
-            "1024x1024"
-          );
-          console.log(response)
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: `${message}`,
+            max_tokens: 3000,
+            temperature: 0,
+            frequency_penalty:0.5,
+            presence_penalty:0
+        });
         res.status(200).json({
-            message:response.data
+            message:response.data.choices[0].text
         })
-        console.log(response.data)
     } catch (error) {
-        if (error.response) {
-          console.log(error.response.status);
-          console.log(error.response.data);
-        } else {
-          console.log(error.message);
-        }
-      }
+        console.error(error)
+        res.status(500).send({error})
+    }
 })
 
-app.post('/imagetest', upload.single('image'),async (req,res)=>{
-    // const {message, currentModel} = req.body
+app.post('/code', async (req,res)=>{
+    const {message} = req.body
+    try {
+        const response = await openai.createCompletion({
+            model: "code-davinci-002",
+            prompt: `${message}`,
+            max_tokens: 3000,
+            temperature: 0,
+            frequency_penalty:0.5,
+            presence_penalty:0
+        });
+        res.status(200).json({
+            message:response.data.choices[0].text
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:response.data.choices[0].text
+        })
+        console.error(error)
+        res.status(500).send({error})
+    }
+})
+
+
+app.post('/imagevariations', upload.single('image'),async (req,res)=>{
+    const {numberImages} = req.body
     try {
         
         const reader = fs.createReadStream(`uploads/${req.file.filename}`)
         const response = await openai.createImageVariation(
             reader,
-            2,
+            parseInt(numberImages),
             "1024x1024"
           );
         res.status(200).json({
             images:response.data.data
         })
-        console.log(response.data)
+        // console.log(response.data)
     } catch (error) {
         res.status(500).json({error})
         if (error.response) {
@@ -119,21 +139,23 @@ app.post('/imagetest', upload.single('image'),async (req,res)=>{
       }
 })
 
-app.get('/image1', async (req,res)=>{
-    const {message, currentModel} = req.body
+app.post('/imageprompt', async (req,res)=>{
+    const {message, numberImages} = req.body
     try {
         const response = await openai.createImage({
-            prompt: "a lion in Mhamid",
-            n: 1,
+            prompt: `${message}`,
+            n: parseInt(numberImages),
             size: "1024x1024",
           });
           image_url = response.data.data[0].url;
         res.status(200).json({
-            message:image_url
+            message:response.data.data
         })
-        console.log(response.data)
     } catch (error) {
         if (error.response) {
+            res.status(500).json({
+                message:error.response.data
+            })
           console.log(error.response.status);
           console.log(error.response.data);
         } else {
